@@ -1,0 +1,1 @@
+alias atc="tmux a"
