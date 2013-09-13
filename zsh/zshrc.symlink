@@ -5,7 +5,7 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 
-export ZSH_CONFIG=$HOME/.dotfiles/
+export SHELL_CONFIG=$HOME/.dotfiles/
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
@@ -16,7 +16,7 @@ fi
 
 # all of our zsh files
 typeset -U config_files
-config_files=($CONFIG/**/*.zsh)
+config_files=($SHELL_CONFIG/**/*.zsh)
 
 # load the path files
 for file in ${(M)config_files:#*/path.zsh}
