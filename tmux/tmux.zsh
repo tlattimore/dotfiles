@@ -1,1 +1,1 @@
-alias atc="tmux a"
+alias atc="tmux a -t"
