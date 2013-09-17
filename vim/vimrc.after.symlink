@@ -7,6 +7,24 @@ set tabstop=2
 set shiftwidth=2
 set autoindent
 set smartindent
+set nocompatible
+set number
+set backspace=indent,eol,start
+set nobackup
+set noswapfile
+
+" Set powerline style.
+let g:Powerline_symbols = 'fancy'
+
+" Disable syntastic code style.
+let g:syntastic_phpcs_disable=1
+
+" Shift+tab for command mode.
+nmap <S-Tab> <<
+" Shift+tab for insert mode.
+imap <S-Tab> <Esc><<i
+" Shift+tab for visual mode.
+vmap <S-Tab> <<
 
 " Wrap gitcommit file types at the appropriate length
 filetype indent plugin on
@@ -24,3 +42,18 @@ if has("autocmd")
   augroup END
 endif
 syntax on
+
+" autopen NERDTree except for git commits.
+autocmd VimEnter * if &filetype !=# 'gitcommit' | NERDTree | endif
+
+" Remove trailing whitespace on save.
+autocmd BufWritePre * :%s/\s\+$//e
+
+noremap <C-P> <ESC>:call PhpDocSingle()<CR>i
+nnoremap <C-P> :call PhpDocSingle()<CR>
+vnoremap <C-P> :call PhpDocRange()<CR>
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
