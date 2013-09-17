@@ -3,3 +3,14 @@
 *~
 *.swp
 *.rbc
+.sass-cache
+codekit-config.json
+*.zip
+*.tar*
+psd/
+*.patch
+
+# Sublime related.
+*.sublime-projectcompletions
+*.sublime-project
+*.sublime-workspace
