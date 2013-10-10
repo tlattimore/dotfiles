@@ -12,10 +12,13 @@ set number
 set backspace=indent,eol,start
 set nobackup
 set noswapfile
+set t_Co=256
+set mouse=a
 
+" Show hidden files
+let NERDTreeShowHidden=1
 " Set powerline style.
 let g:Powerline_symbols = 'fancy'
-
 " Disable syntastic code style.
 let g:syntastic_phpcs_disable=1
 
@@ -46,14 +49,12 @@ syntax on
 " autopen NERDTree except for git commits.
 autocmd VimEnter * if &filetype !=# 'gitcommit' | NERDTree | endif
 
+" close NERDTree if it's the last buffer.
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
 " Remove trailing whitespace on save.
 autocmd BufWritePre * :%s/\s\+$//e
 
 noremap <C-P> <ESC>:call PhpDocSingle()<CR>i
 nnoremap <C-P> :call PhpDocSingle()<CR>
 vnoremap <C-P> :call PhpDocRange()<CR>
-
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>

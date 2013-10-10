@@ -2,9 +2,7 @@ if filereadable(expand("~/.vimrc.before"))
   source ~/.vimrc.before
 endif
 
-" Be iMproved
-set nocompatible
-" required!
+" required vundle stuff!
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -19,6 +17,11 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'airblade/vim-gitgutter'
+Bundle 'git://drupalcode.org/project/vimrc.git', {'rtp': 'bundle/vim-plugin-for-drupal/'}
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'ap/vim-css-color'
+Bundle 'tomasr/molokai'
+Bundle 'tpope/vim-markdown'
 
 if filereadable(expand("~/.vimrc.after"))
   source ~/.vimrc.after

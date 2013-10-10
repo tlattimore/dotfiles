@@ -1,6 +1,9 @@
 # zsh is kinda tight
 set-option -g default-shell $SHELL
 
+# Reset window numbering to start at 1
+set -g base-index 1
+
 # copy and paster
 set-option -g default-command "reattach-to-user-namespace -l zsh"
 
@@ -10,8 +13,6 @@ set -g default-terminal "screen-256color"
 # act like GNU screen
 unbind C-b
 set -g prefix C-a
-
-# a mouse
 
 # act like vim
 setw -g mode-keys vi
@@ -30,13 +31,15 @@ bind -t vi-copy y copy-selection
 bind y run-shell "reattach-to-user-namespace -l zsh -c 'tmux show-buffer | pbcopy'"
 unbind %
 bind | split-window -h
+bind _ split-window -v
 bind-key C-a send-prefix
 
 # Set status bar
 set -g status-bg black
 set -g status-fg white
+set -g status-interval 1
 set -g status-left '#[fg=green][#[bg=black,fg=cyan]#S#[fg=green]]'
-set -g status-right '#[fg=blue]‡ #[fg=red]#(battery-life)#[default] // #[fg=blue]ʘ #[fg=yellow]%Y-%m-%d %H:%M#[default] '
+set -g status-right '#[fg=blue]‡ #[fg=red]#( battery-life )#[default]  #[fg=white,bg=default]%a%l:%M:%S %p#[default] #[fg=blue]%Y-%m-%d '
 
 # Highlight active window
 set-window-option -g window-status-current-bg green
