@@ -9,6 +9,7 @@ codekit-config.json
 *.tar*
 psd/
 *.patch
+sites/default/settings.php
 
 # Sublime related.
 *.sublime-projectcompletions

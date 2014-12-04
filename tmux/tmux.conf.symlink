@@ -44,4 +44,7 @@ set -g status-right '#[fg=blue]‡ #[fg=red]#( battery-life )#[default]  #[fg=wh
 # Highlight active window
 set-window-option -g window-status-current-bg green
 
+# Better resizing
+set-window-option -g aggressive-resize on
+
 bind R source-file ~/.tmux.conf \; display-message "Config reloaded..."

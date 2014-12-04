@@ -1,6 +1,7 @@
 syntax enable
 set background=dark
-colorscheme solarized
+colorscheme base16-default
+let base16colorspace=256
 set clipboard=unnamed
 set expandtab
 set tabstop=2
@@ -15,12 +16,9 @@ set noswapfile
 set t_Co=256
 set mouse=a
 
-" Show hidden files
-let NERDTreeShowHidden=1
+
 " Set powerline style.
 let g:Powerline_symbols = 'fancy'
-" Disable syntastic code style.
-let g:syntastic_phpcs_disable=1
 
 " Shift+tab for command mode.
 nmap <S-Tab> <<
@@ -44,13 +42,6 @@ if has("autocmd")
     autocmd BufRead,BufNewFile *.view set filetype=php
   augroup END
 endif
-syntax on
-
-" autopen NERDTree except for git commits.
-autocmd VimEnter * if &filetype !=# 'gitcommit' | NERDTree | endif
-
-" close NERDTree if it's the last buffer.
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " Remove trailing whitespace on save.
 autocmd BufWritePre * :%s/\s\+$//e

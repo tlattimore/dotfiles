@@ -41,5 +41,10 @@ do
 done
 
 unset config_files
-export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$(npm root -g):$(brew --prefix homebrew/php/php55)/bin:$HOME/bin:$HOME/.rbenv/bin:$HOME/.composer/vendor/bin:$PATH"
+# export PKG_CONFIG_PATH="/opt/X11/lib/pkgconfig"
+export NODE_PATH="'$(npm root -g)'"
 eval "$(rbenv init -)"
+export RBENV_ROOT=/usr/local/var/rbenv
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"

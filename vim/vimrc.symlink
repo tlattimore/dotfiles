@@ -5,23 +5,25 @@ endif
 " required vundle stuff!
 filetype off
 set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+call vundle#begin()
 
 " let Vundle manage Vundle
 Bundle 'gmarik/vundle'
 
+
 " Custom bundles
-Bundle 'tpope/vim-fugitive'
-Bundle 'scrooloose/nerdtree'
-Bundle 'altercation/vim-colors-solarized'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'chriskempson/base16-vim'
 Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'git://drupalcode.org/project/vimrc.git', {'rtp': 'bundle/vim-plugin-for-drupal/'}
-Bundle 'scrooloose/nerdcommenter'
 Bundle 'ap/vim-css-color'
-Bundle 'tomasr/molokai'
+Plugin 'sickill/vim-monokai'
 Bundle 'tpope/vim-markdown'
+call vundle#end()
+
 
 if filereadable(expand("~/.vimrc.after"))
   source ~/.vimrc.after

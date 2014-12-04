@@ -23,6 +23,9 @@ brew install the_silver_searcher
 brew install tmux
 brew install vim
 brew install wget --enable-iri
+brew install reattach-to-user-namespace
+brew install rbenv
+brew install ruby-build
 
 brew cask install adobe-creative-cloud
 brew cask install apptrap
