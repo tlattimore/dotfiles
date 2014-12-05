@@ -1,7 +1,6 @@
 syntax enable
-set background=dark
 colorscheme base16-default
-let base16colorspace=256
+set background=dark
 set clipboard=unnamed
 set expandtab
 set tabstop=2
@@ -15,10 +14,36 @@ set nobackup
 set noswapfile
 set t_Co=256
 set mouse=a
+set laststatus=2
+set incsearch
 
+" Inherit the terminals background color.
+highlight Normal ctermbg=NONE
+" No background behind line numbers
+highlight LineNr ctermfg=lightgray ctermbg=NONE
+" No background on Signcolumn
+highlight SignColumn ctermfg=white ctermbg=NONE
+" Git Gutter custom settings
+highlight GitGutterAdd ctermfg=green ctermbg=NONE
+highlight GitGutterChange ctermfg=lightblue ctermbg=NONE
+highlight GitGutterDelete ctermfg=red ctermbg=NONE
+highlight GitGutterChangeDelete ctermfg=lightblue ctermbg=NONE
 
-" Set powerline style.
-let g:Powerline_symbols = 'fancy'
+" Set sign column to always be open.
+let g:gitgutter_sign_column_always = 1
+" 256 Color palette for base16 color scheme.
+let base16colorspace=256
+" Enable powerline special fonts.
+let g:airline_powerline_fonts=1
+" Turn on Vim Airline tabs.
+let g:airline#extensions#tabline#enabled = 1
+" Don't show seperators
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+
+" Send dd to the blackhole.
+nnoremap d "_d
+vnoremap d "_d
 
 " Shift+tab for command mode.
 nmap <S-Tab> <<
@@ -26,26 +51,22 @@ nmap <S-Tab> <<
 imap <S-Tab> <Esc><<i
 " Shift+tab for visual mode.
 vmap <S-Tab> <<
-
 " Wrap gitcommit file types at the appropriate length
 filetype indent plugin on
 
 "" Make Drupal file types have php syntax.
 if has("autocmd")
-    " Drupal *.module and *.install files.
-    augroup module
-      autocmd BufRead,BufNewFile *.module set filetype=php
-      autocmd BufRead,BufNewFile *.install set filetype=php
-      autocmd BufRead,BufNewFile *.test set filetype=php
-      autocmd BufRead,BufNewFile *.inc set filetype=php
-      autocmd BufRead,BufNewFile *.profile set filetype=php
+  " Drupal *.module and *.install files.
+  augroup module
+    autocmd BufRead,BufNewFile *.module set filetype=php
+    autocmd BufRead,BufNewFile *.install set filetype=php
+    autocmd BufRead,BufNewFile *.test set filetype=php
+    autocmd BufRead,BufNewFile *.inc set filetype=php
+    autocmd BufRead,BufNewFile *.profile set filetype=php
     autocmd BufRead,BufNewFile *.view set filetype=php
   augroup END
 endif
 
+command -nargs=+ Se execute 'vimgrep /' . [<f-args>][0] . '/ **/*.' . [<f-args>][1]
 " Remove trailing whitespace on save.
 autocmd BufWritePre * :%s/\s\+$//e
-
-noremap <C-P> <ESC>:call PhpDocSingle()<CR>i
-nnoremap <C-P> :call PhpDocSingle()<CR>
-vnoremap <C-P> :call PhpDocRange()<CR>

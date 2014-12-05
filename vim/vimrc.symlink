@@ -10,20 +10,19 @@ call vundle#begin()
 " let Vundle manage Vundle
 Bundle 'gmarik/vundle'
 
-
 " Custom bundles
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'chriskempson/base16-vim'
-Bundle 'cakebaker/scss-syntax.vim'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'git://drupalcode.org/project/vimrc.git', {'rtp': 'bundle/vim-plugin-for-drupal/'}
-Bundle 'ap/vim-css-color'
+Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'bling/vim-airline'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'git://drupalcode.org/project/vimrc.git', {'rtp': 'bundle/vim-plugin-for-drupal/'}
+Plugin 'ap/vim-css-color'
 Plugin 'sickill/vim-monokai'
-Bundle 'tpope/vim-markdown'
-call vundle#end()
+Plugin 'tpope/vim-markdown'
 
+call vundle#end()
 
 if filereadable(expand("~/.vimrc.after"))
   source ~/.vimrc.after
