@@ -28,6 +28,8 @@ highlight GitGutterAdd ctermfg=green ctermbg=NONE
 highlight GitGutterChange ctermfg=lightblue ctermbg=NONE
 highlight GitGutterDelete ctermfg=red ctermbg=NONE
 highlight GitGutterChangeDelete ctermfg=lightblue ctermbg=NONE
+" Change Vim Statusline
+highlight StatusLine ctermbg=darkgray ctermfg=lightgray
 
 " Set sign column to always be open.
 let g:gitgutter_sign_column_always = 1
