@@ -8,6 +8,7 @@ set shiftwidth=2
 set autoindent
 set smartindent
 set nocompatible
+set nowrap
 set number
 set backspace=indent,eol,start
 set nobackup
@@ -16,11 +17,14 @@ set t_Co=256
 set mouse=a
 set laststatus=2
 set incsearch
+set cursorline
 
 " Inherit the terminals background color.
 highlight Normal ctermbg=NONE
 " No background behind line numbers
 highlight LineNr ctermfg=lightgray ctermbg=NONE
+" Comment Highlighting
+highlight Comment ctermbg=NONE
 " No background on Signcolumn
 highlight SignColumn ctermfg=white ctermbg=NONE
 " Git Gutter custom settings
@@ -30,7 +34,13 @@ highlight GitGutterDelete ctermfg=red ctermbg=NONE
 highlight GitGutterChangeDelete ctermfg=lightblue ctermbg=NONE
 " Change Vim Statusline
 highlight StatusLine ctermbg=darkgray ctermfg=lightgray
+" Highlight line color.
+highlight CursorLine ctermbg=235
+highlight CursorLineNR ctermbg=235 ctermfg=white
 
+" Markdown
+let g:vim_markdown_folding_disabled=1
+let g:vim_markdown_frontmatter=1
 " Set sign column to always be open.
 let g:gitgutter_sign_column_always = 1
 " 256 Color palette for base16 color scheme.
@@ -39,9 +49,24 @@ let base16colorspace=256
 let g:airline_powerline_fonts=1
 " Turn on Vim Airline tabs.
 let g:airline#extensions#tabline#enabled = 1
-" Don't show seperators
-let g:airline_left_sep=''
-let g:airline_right_sep=''
+let g:airline_theme = 'airlineish'
+" Airline Symbols
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+" unicode symbols
+let g:airline_left_sep = ''
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_sep = ''
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
 
 " Send dd to the blackhole.
 nnoremap d "_d
@@ -69,6 +94,16 @@ if has("autocmd")
   augroup END
 endif
 
-command -nargs=+ Se execute 'vimgrep /' . [<f-args>][0] . '/ **/*.' . [<f-args>][1]
 " Remove trailing whitespace on save.
 autocmd BufWritePre * :%s/\s\+$//e
+
+" Markdown
+let g:pencil#wrapModeDefault = 'soft'   " or 'hard'
+
+augroup pencil
+  autocmd!
+  autocmd BufNewFile,BufReadPost *.md colorscheme pencil
+  autocmd BufNewFile,BufReadPost *.md highlight Normal ctermbg=NONE
+  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType text         call pencil#init({'wrap': 'hard'})
+augroup END

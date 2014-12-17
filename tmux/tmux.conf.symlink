@@ -3,7 +3,7 @@ set-option -g default-shell $SHELL
 
 # Reset window numbering to start at 1
 set -g base-index 1
-
+set -g pane-base-index 1
 # copy and paster
 set-option -g default-command "reattach-to-user-namespace -l zsh"
 
@@ -42,9 +42,12 @@ set -g status-left '#[fg=green][#[bg=black,fg=cyan]#S#[fg=green]]'
 set -g status-right '#[fg=blue]‡ #[fg=red]#( battery-life )#[default]  #[fg=white,bg=default]%a%l:%M:%S %p#[default] #[fg=blue]%Y-%m-%d '
 
 # Highlight active window
-set-window-option -g window-status-current-bg green
+set-window-option -g window-status-current-bg blue
 
 # Better resizing
 set-window-option -g aggressive-resize on
+
+# Change default delay
+set -s escape-time 1
 
 bind R source-file ~/.tmux.conf \; display-message "Config reloaded..."
