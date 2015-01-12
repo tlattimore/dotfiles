@@ -1,9 +1,9 @@
-# tlattimore's dotfiles
+ tlattimore's dotfiles
 
 ## dotfiles
 
 This repo is based on [Zach holmen's
-dotfiles](https://github.com/holman/dotfiles). 
+dotfiles](https://github.com/holman/dotfiles).
 
 Your dotfiles are how you personalize your system. These are mine.
 

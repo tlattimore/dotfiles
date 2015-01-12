@@ -37,10 +37,22 @@ highlight StatusLine ctermbg=darkgray ctermfg=lightgray
 " Highlight line color.
 highlight CursorLine ctermbg=235
 highlight CursorLineNR ctermbg=235 ctermfg=white
-
-" Markdown
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+"
+" Markdown stuff
 let g:vim_markdown_folding_disabled=1
 let g:vim_markdown_frontmatter=1
+let g:marked_app = "Marked"
+let g:pencil#wrapModeDefault = 'soft'
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd,md call pencil#init()
+  autocmd FileType text         call pencil#init()
+augroup END
+
 " Set sign column to always be open.
 let g:gitgutter_sign_column_always = 1
 " 256 Color palette for base16 color scheme.
@@ -67,6 +79,8 @@ let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = '|'
 
 " Send dd to the blackhole.
 nnoremap d "_d
@@ -94,16 +108,16 @@ if has("autocmd")
   augroup END
 endif
 
+" Markdown specific stuff.
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd Filetype markdown call SetMarkdownOptions()
+function SetMarkdownOptions()
+  " Enable spellcheck.
+  set spell spelllang=en_us
+  " Wrap text (without linebreak charecters)
+  " I don't want to highlight the current line.
+  highlight CursorLine ctermbg=NONE
+endfunction
+
 " Remove trailing whitespace on save.
 autocmd BufWritePre * :%s/\s\+$//e
-
-" Markdown
-let g:pencil#wrapModeDefault = 'soft'   " or 'hard'
-
-augroup pencil
-  autocmd!
-  autocmd BufNewFile,BufReadPost *.md colorscheme pencil
-  autocmd BufNewFile,BufReadPost *.md highlight Normal ctermbg=NONE
-  autocmd FileType markdown,mkd call pencil#init()
-  autocmd FileType text         call pencil#init({'wrap': 'hard'})
-augroup END

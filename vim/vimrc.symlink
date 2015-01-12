@@ -8,7 +8,7 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#begin()
 
 " let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
 " Custom bundles
 Plugin 'kien/ctrlp.vim'
@@ -21,9 +21,10 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'git://drupalcode.org/project/vimrc.git', {'rtp': 'bundle/vim-plugin-for-drupal/'}
 Plugin 'ap/vim-css-color'
 Plugin 'sickill/vim-monokai'
-Plugin 'tpope/vim-markdown'
-Plugin 'reedes/vim-pencil'
-Plugin 'reedes/vim-colors-pencil'
+Plugin 'junegunn/goyo.vim'
+Plugin 'vim-pencil'
+Plugin 'itspriddle/vim-marked'
+Plugin 'tpope/vim-liquid'
 
 call vundle#end()
 
