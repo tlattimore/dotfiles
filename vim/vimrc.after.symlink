@@ -14,10 +14,10 @@ set backspace=indent,eol,start
 set nobackup
 set noswapfile
 set t_Co=256
-set mouse=a
 set laststatus=2
 set incsearch
 set cursorline
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 " Inherit the terminals background color.
 highlight Normal ctermbg=NONE

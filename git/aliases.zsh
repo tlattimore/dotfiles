@@ -1,2 +1,2 @@
-alias gpull='git pull --rebase origin'
+alias gpull='git pull origin'
 alias gpush='git push origin'
