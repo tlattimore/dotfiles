@@ -18,15 +18,22 @@ set laststatus=2
 set incsearch
 set cursorline
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+set undofile
+set undodir=$HOME/.vim/history
+set undolevels=1000
+set undoreload=10000
+
+map <C-l> :bnext<CR>
+map <C-h> :bprev<CR>
 
 " Inherit the terminals background color.
 highlight Normal ctermbg=NONE
 " No background behind line numbers
-highlight LineNr ctermfg=lightgray ctermbg=NONE
+highlight LineNr ctermfg=white ctermbg=235
 " Comment Highlighting
 highlight Comment ctermbg=NONE
 " No background on Signcolumn
-highlight SignColumn ctermfg=white ctermbg=NONE
+highlight SignColumn ctermfg=white ctermbg=235
 " Git Gutter custom settings
 highlight GitGutterAdd ctermfg=green ctermbg=NONE
 highlight GitGutterChange ctermfg=lightblue ctermbg=NONE
@@ -36,7 +43,7 @@ highlight GitGutterChangeDelete ctermfg=lightblue ctermbg=NONE
 highlight StatusLine ctermbg=darkgray ctermfg=lightgray
 " Highlight line color.
 highlight CursorLine ctermbg=235
-highlight CursorLineNR ctermbg=235 ctermfg=white
+highlight CursorLineNR ctermbg=NONE ctermfg=white
 map <up> <nop>
 map <down> <nop>
 map <left> <nop>

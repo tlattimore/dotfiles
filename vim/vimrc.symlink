@@ -25,6 +25,7 @@ Plugin 'junegunn/goyo.vim'
 Plugin 'vim-pencil'
 Plugin 'itspriddle/vim-marked'
 Plugin 'tpope/vim-liquid'
+Plugin 'mxw/vim-jsx'
 Plugin 'walm/jshint.vim'
 
 call vundle#end()
