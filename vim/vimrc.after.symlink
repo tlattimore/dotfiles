@@ -22,6 +22,7 @@ set undofile
 set undodir=$HOME/.vim/history
 set undolevels=1000
 set undoreload=10000
+set hidden
 
 map <C-l> :bnext<CR>
 map <C-h> :bprev<CR>

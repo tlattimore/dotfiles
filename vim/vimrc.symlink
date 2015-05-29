@@ -27,6 +27,7 @@ Plugin 'itspriddle/vim-marked'
 Plugin 'tpope/vim-liquid'
 Plugin 'mxw/vim-jsx'
 Plugin 'walm/jshint.vim'
+Plugin 'ConradIrwin/vim-bracketed-paste'
 
 call vundle#end()
 
