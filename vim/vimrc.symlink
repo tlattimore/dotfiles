@@ -28,6 +28,8 @@ Plugin 'tpope/vim-liquid'
 Plugin 'mxw/vim-jsx'
 Plugin 'walm/jshint.vim'
 Plugin 'ConradIrwin/vim-bracketed-paste'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'terryma/vim-multiple-cursors'
 
 call vundle#end()
 
