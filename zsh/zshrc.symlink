@@ -1,7 +1,7 @@
 # Oh-my-zsh stuff
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="blinks"
-plugins=(git)
+plugins=(git tmuxinator npm grunt gulp hub)
 source $ZSH/oh-my-zsh.sh
 
 export EDITOR=vim
@@ -41,10 +41,11 @@ do
 done
 
 unset config_files
-export PATH="$(npm root -g):$(brew --prefix homebrew/php/php55)/bin:$HOME/bin:$HOME/.rbenv/bin:$HOME/.composer/vendor/bin:$PATH"
+export PATH="$$(brew --prefix homebrew/php/php56)/bin:$(npm root -g):$HOME/bin:$HOME/.rbenv/bin:$HOME/.composer/vendor/bin:$PATH"
 # export PKG_CONFIG_PATH="/opt/X11/lib/pkgconfig"
 export NODE_PATH="'$(npm root -g)'"
 eval "$(rbenv init -)"
 export RBENV_ROOT=/usr/local/var/rbenv
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+export PATH="$(brew --prefix homebrew/php/php56)/bin:$PATH"

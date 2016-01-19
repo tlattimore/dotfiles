@@ -29,7 +29,13 @@ Plugin 'mxw/vim-jsx'
 Plugin 'walm/jshint.vim'
 Plugin 'ConradIrwin/vim-bracketed-paste'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'terryma/vim-multiple-cursors'
+Plugin 'davidoc/taskpaper.vim'
+Plugin 'groenewege/vim-less'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'tpope/vim-surround'
+Plugin 'othree/yajs.vim'
+Plugin 'vim-scripts/SyntaxComplete'
+Plugin 'majutsushi/tagbar'
 
 call vundle#end()
 

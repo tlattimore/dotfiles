@@ -23,7 +23,13 @@ set undodir=$HOME/.vim/history
 set undolevels=1000
 set undoreload=10000
 set hidden
+set linespace=0
+let mapleader = "\<Space>"
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>o :CtrlP<CR>
+nmap <F8> :TagbarToggle<CR>
 
+" Previous and next buffers.
 map <C-l> :bnext<CR>
 map <C-h> :bprev<CR>
 
@@ -36,15 +42,15 @@ highlight Comment ctermbg=NONE
 " No background on Signcolumn
 highlight SignColumn ctermfg=white ctermbg=235
 " Git Gutter custom settings
-highlight GitGutterAdd ctermfg=green ctermbg=NONE
-highlight GitGutterChange ctermfg=lightblue ctermbg=NONE
-highlight GitGutterDelete ctermfg=red ctermbg=NONE
-highlight GitGutterChangeDelete ctermfg=lightblue ctermbg=NONE
-" Change Vim Statusline
-highlight StatusLine ctermbg=darkgray ctermfg=lightgray
+highlight GitGutterAdd ctermfg=green ctermbg=235
+highlight GitGutterChange ctermfg=lightblue ctermbg=235
+highlight GitGutterDelete ctermfg=red ctermbg=235
+highlight GitGutterChangeDelete ctermfg=lightblue ctermbg=235
 " Highlight line color.
 highlight CursorLine ctermbg=235
 highlight CursorLineNR ctermbg=NONE ctermfg=white
+
+" Disable Arrow keys
 map <up> <nop>
 map <down> <nop>
 map <left> <nop>
@@ -63,34 +69,18 @@ augroup END
 
 " Set sign column to always be open.
 let g:gitgutter_sign_column_always = 1
+
 " 256 Color palette for base16 color scheme.
 let base16colorspace=256
+
 " Enable powerline special fonts.
 let g:airline_powerline_fonts=1
+
 " Turn on Vim Airline tabs.
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme = 'airlineish'
-" Airline Symbols
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-" unicode symbols
-let g:airline_left_sep = ''
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_sep = ''
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
-let g:airline#extensions#tabline#left_sep = ''
-let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_theme = 'base16'
 
-" Send dd to the blackhole.
+" Send d and c to the blackhole.
 nnoremap d "_d
 vnoremap d "_d
 
@@ -129,3 +119,14 @@ endfunction
 
 " Remove trailing whitespace on save.
 autocmd BufWritePre * :%s/\s\+$//e
+
+" Better relative line numbers
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set norelativenumber
+  else
+    set relativenumber
+  endif
+endfunc
+
+nnoremap <C-n> :call NumberToggle()<cr>
