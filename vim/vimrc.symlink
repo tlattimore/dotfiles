@@ -36,6 +36,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'othree/yajs.vim'
 Plugin 'vim-scripts/SyntaxComplete'
 Plugin 'majutsushi/tagbar'
+Plugin 'editorconfig/editorconfig-vim'
 
 call vundle#end()
 

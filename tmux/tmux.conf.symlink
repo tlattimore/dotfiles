@@ -57,4 +57,6 @@ set-window-option -g aggressive-resize on
 # Change default delay
 set -s escape-time 1
 
+bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M' 'copy-mode -e; send-keys -M'"
+bind m set -g mouse on \; display "Mouse ON"; bind M set -g mouse off \; display "Mouse OFF"
 bind R source-file ~/.tmux.conf \; display-message "Config reloaded..."

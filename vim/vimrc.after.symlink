@@ -26,12 +26,14 @@ set hidden
 set linespace=0
 let mapleader = "\<Space>"
 nnoremap <Leader>w :w<CR>
-nnoremap <Leader>o :CtrlP<CR>
+nnoremap <Leader>d :bd<CR>
 nmap <F8> :TagbarToggle<CR>
 
 " Previous and next buffers.
 map <C-l> :bnext<CR>
 map <C-h> :bprev<CR>
+" Map :E to :Explore
+command! -nargs=* -bar -bang -count=0 -complete=dir E Explore <args>
 
 " Inherit the terminals background color.
 highlight Normal ctermbg=NONE
