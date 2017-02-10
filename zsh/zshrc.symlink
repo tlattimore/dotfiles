@@ -1,11 +1,15 @@
 # Oh-my-zsh stuff
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="blinks"
-plugins=(git tmuxinator npm grunt gulp hub)
+plugins=(git tmuxinator npm grunt gulp hub mode)
 source $ZSH/oh-my-zsh.sh
 
 export EDITOR=vim
 export SHELL_CONFIG=$HOME/.dotfiles/
+
+
+#BASE16_SHELL=$HOME/.config/base16-shell/
+#[ -n "$PS1" ] && [ $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
@@ -41,7 +45,7 @@ do
 done
 
 unset config_files
-export PATH="$$(brew --prefix homebrew/php/php56)/bin:$(npm root -g):$HOME/bin:$HOME/.rbenv/bin:$HOME/.composer/vendor/bin:$PATH"
+export PATH="$$(brew --prefix homebrew/php/php56)/bin:$(npm root -g):$HOME/bin:$HOME/.rbenv/bin:$PATH"
 # export PKG_CONFIG_PATH="/opt/X11/lib/pkgconfig"
 export NODE_PATH="'$(npm root -g)'"
 eval "$(rbenv init -)"
@@ -49,3 +53,28 @@ export RBENV_ROOT=/usr/local/var/rbenv
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 export PATH="$(brew --prefix homebrew/php/php56)/bin:$PATH"
+
+# Send notifications to pushover.
+function push {
+    curl -s -F "token=aUv7GRULtGpQRhGWLmGKGJ3bRk8eZ6" \
+    -F "user=u3aGH3oB8UPbeuqWzVyLyA4wQmiFZh" \
+    -F "title=Job" \
+    -F "message=$1" https://api.pushover.net/1/messages.json
+}
+
+autoload bashcompinit
+bashcompinit
+
+function rvm () {
+  if [[ $1 == 'use' ]]; then
+    rbenv shell $2
+  fi
+}
+export PATH="/usr/local/sbin:$PATH"
+export PATH="$HOME/.composer/vendor/bin:$PATH"
+
+export NVM_DIR="/Users/tlattimore/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+export LESSOPEN="| /usr/local/bin/src-hilite-lesspipe.sh %s"
+export LESS=' -R '
