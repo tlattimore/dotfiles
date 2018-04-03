@@ -14,7 +14,6 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'bling/vim-airline'
-Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'paranoida/vim-airlineish'
 Plugin 'airblade/vim-gitgutter'
@@ -26,11 +25,8 @@ Plugin 'vim-pencil'
 Plugin 'itspriddle/vim-marked'
 Plugin 'tpope/vim-liquid'
 Plugin 'mxw/vim-jsx'
-Plugin 'walm/jshint.vim'
 Plugin 'ConradIrwin/vim-bracketed-paste'
 Plugin 'davidoc/taskpaper.vim'
-Plugin 'groenewege/vim-less'
-Plugin 'kchmck/vim-coffee-script'
 Plugin 'tpope/vim-surround'
 Plugin 'othree/yajs.vim'
 Plugin 'vim-scripts/SyntaxComplete'
@@ -40,6 +36,12 @@ Plugin 'joonty/vdebug'
 Plugin 'scrooloose/syntastic'
 Plugin 'lumiliet/vim-twig'
 Plugin 'mzlogin/vim-markdown-toc'
+Plugin 'cwoac/nvim'
+Plugin 'isRuslan/vim-es6'
+Plugin 'mileszs/ack.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'ternjs/tern_for_vim'
+Plugin 'pangloss/vim-javascript'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -72,6 +74,8 @@ set undoreload=10000
 set hidden
 set linespace=0
 let mapleader = "\<Space>"
+let g:ackprg = 'ag --vimgrep'
+let g:jsx_ext_required = 0
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>d :bd<CR>
 nmap <F8> :TagbarToggle<CR>
@@ -179,5 +183,40 @@ endfunc
 
 nnoremap <C-n> :call NumberToggle()<cr>
 
+function! s:TaskpaperSetup()
+  " Your settings
+  autocmd BufLeave,FocusLost * silent! wall
+endfunction
+
+augroup vimrc-taskpaper
+autocmd!
+  autocmd FileType taskpaper call s:taskpaper_setup()
+augroup END
+
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+
+" Force saving files that require root permission
+cnoremap w!! w !sudo tee > /dev/null %
+
+" Wrap visual selection in an HTML tag.
+vmap <Leader>t <Esc>:call VisualHTMLTagWrap()<CR>
+function! VisualHTMLTagWrap()
+  let tag = input("Tag to wrap block: ")
+  if len(tag) > 0
+    normal `>
+    if &selection == 'exclusive'
+      exe "normal i</".tag.">"
+    else
+      exe "normal a</".tag.">"
+    endif
+    normal `<
+    exe "normal i<".tag.">"
+    normal `<
+  endif
+endfunction
+
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](doc|tmp|node_modules)',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ }
