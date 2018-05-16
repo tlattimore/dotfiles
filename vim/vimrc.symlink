@@ -1,54 +1,59 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
+call plug#begin('~/.vim/plugged')
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 "
 " Custom bundles
 "
-Plugin 'kien/ctrlp.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'bling/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'paranoida/vim-airlineish'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'git://drupalcode.org/project/vimrc.git', {'rtp': 'bundle/vim-plugin-for-drupal/'}
-Plugin 'ap/vim-css-color'
-Plugin 'sickill/vim-monokai'
-Plugin 'junegunn/goyo.vim'
-Plugin 'vim-pencil'
-Plugin 'itspriddle/vim-marked'
-Plugin 'tpope/vim-liquid'
-Plugin 'mxw/vim-jsx'
-Plugin 'ConradIrwin/vim-bracketed-paste'
-Plugin 'davidoc/taskpaper.vim'
-Plugin 'tpope/vim-surround'
-Plugin 'othree/yajs.vim'
-Plugin 'vim-scripts/SyntaxComplete'
-Plugin 'majutsushi/tagbar'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'joonty/vdebug'
-Plugin 'scrooloose/syntastic'
-Plugin 'lumiliet/vim-twig'
-Plugin 'mzlogin/vim-markdown-toc'
-Plugin 'cwoac/nvim'
-Plugin 'isRuslan/vim-es6'
-Plugin 'mileszs/ack.vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'ternjs/tern_for_vim'
-Plugin 'pangloss/vim-javascript'
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/vim-plug' " So we can run :help plug-options
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'cakebaker/scss-syntax.vim', {'for': 'scss'}
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'paranoida/vim-airlineish'
+Plug 'airblade/vim-gitgutter'
+Plug 'ap/vim-css-color'
+Plug 'sickill/vim-monokai'
+Plug 'junegunn/goyo.vim', {'for': 'markdown'}
+Plug 'itspriddle/vim-marked', {'for': 'markdown'}
+Plug 'tpope/vim-liquid'
+Plug 'mxw/vim-jsx', {'for': 'jsx'}
+Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'davidoc/taskpaper.vim', {'for': 'taskpaper'}
+Plug 'tpope/vim-surround'
+Plug 'othree/yajs.vim'
+Plug 'vim-scripts/SyntaxComplete'
+Plug 'majutsushi/tagbar'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'scrooloose/syntastic'
+Plug 'lumiliet/vim-twig', {'for': 'twig'}
+Plug 'isRuslan/vim-es6'
+Plug 'mileszs/ack.vim'
+Plug 'Valloric/YouCompleteMe'
+Plug 'ternjs/tern_for_vim'
+Plug 'pangloss/vim-javascript'
+call plug#end()
 
-call vundle#end()            " required
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
+
 filetype plugin indent on    " required
-
 syntax enable
 colorscheme monokai
 syntax enable
+set shell=/bin/bash
 set background=dark
 set clipboard=unnamed
 set expandtab
@@ -115,15 +120,9 @@ map <right> <nop>
 let g:vim_markdown_folding_disabled=1
 let g:vim_markdown_frontmatter=1
 let g:marked_app = "Marked"
-let g:pencil#wrapModeDefault = 'soft'
-augroup pencil
-  autocmd!
-  autocmd FileType markdown,mkd,md call pencil#init()
-  autocmd FileType text         call pencil#init()
-augroup END
 
 " Set sign column to always be open.
-let g:gitgutter_sign_column_always = 1
+set signcolumn=yes
 
 " Enable powerline special fonts.
 let g:airline_powerline_fonts = 1
@@ -216,7 +215,4 @@ function! VisualHTMLTagWrap()
   endif
 endfunction
 
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](doc|tmp|node_modules)',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ }
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\'
