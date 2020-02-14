@@ -38,19 +38,16 @@ bind _ split-window -v
 bind-key C-a send-prefix
 
 # Set status bar
-set -g status-bg black
+set -g status-bg colour232
 set -g status-fg white
 set -g status-interval 1
-set -g status-left '#[fg=green][#[bg=black,fg=cyan]#S#[fg=green]]'
+set -g status-left '#[fg=green][#[bg=black,fg=colour255]#S#[fg=colour255]]'
 set -g status-right '#[fg=blue]‡ #[fg=red]#( battery-life )#[default]  #[fg=white,bg=default]%a%l:%M:%S %p#[default] #[fg=blue]%Y-%m-%d '
 # set -g status-right  '#[fg=blue]%Y-%m-%d '
 
 # Highlight active window
-set-window-option -g window-status-current-bg blue
-set -g pane-active-border-fg "#ca8483"
-set -g pane-active-border-bg default
-
-
+set-window-option -g window-status-current-style bg=blue
+set-option -g pane-active-border-style fg=magenta,bg=default
 # Better resizing
 set-window-option -g aggressive-resize on
 

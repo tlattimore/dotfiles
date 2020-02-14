@@ -1,5 +1,6 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
+
 call plug#begin('~/.vim/plugged')
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -12,47 +13,36 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-plug' " So we can run :help plug-options
 Plug 'kien/ctrlp.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'cakebaker/scss-syntax.vim', {'for': 'scss'}
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'paranoida/vim-airlineish'
 Plug 'airblade/vim-gitgutter'
-Plug 'ap/vim-css-color'
-Plug 'sickill/vim-monokai'
-Plug 'junegunn/goyo.vim', {'for': 'markdown'}
-Plug 'itspriddle/vim-marked', {'for': 'markdown'}
-Plug 'tpope/vim-liquid'
-Plug 'mxw/vim-jsx', {'for': 'jsx'}
+Plug 'patstockwell/vim-monokai-tasty'
 Plug 'ConradIrwin/vim-bracketed-paste'
-Plug 'davidoc/taskpaper.vim', {'for': 'taskpaper'}
 Plug 'tpope/vim-surround'
 Plug 'othree/yajs.vim'
-Plug 'vim-scripts/SyntaxComplete'
 Plug 'majutsushi/tagbar'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'scrooloose/syntastic'
-Plug 'lumiliet/vim-twig', {'for': 'twig'}
 Plug 'isRuslan/vim-es6'
 Plug 'mileszs/ack.vim'
-Plug 'Valloric/YouCompleteMe'
-Plug 'ternjs/tern_for_vim'
 Plug 'pangloss/vim-javascript'
+Plug 'w0rp/ale'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'yuezk/vim-js'
+Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'styled-components/vim-styled-components'
+Plug 'elzr/vim-json'
+Plug 'jparise/vim-graphql'
+Plug 'zivyangll/git-blame.vim'
 call plug#end()
-
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-let g:deoplete#enable_at_startup = 1
 
 filetype plugin indent on    " required
 syntax enable
-colorscheme monokai
+colorscheme vim-monokai-tasty
 syntax enable
+
 set shell=/bin/bash
 set background=dark
 set clipboard=unnamed
@@ -78,9 +68,22 @@ set undolevels=100
 set undoreload=10000
 set hidden
 set linespace=0
+
 let mapleader = "\<Space>"
 let g:ackprg = 'ag --vimgrep'
 let g:jsx_ext_required = 0
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\'
+let g:netrw_banner = 0
+let g:netrw_fastbrowse = 0
+let g:ale_fixers = {
+\   'javascript': ['prettier'],
+\   'css': ['prettier'],
+\}
+let g:ale_linters_explicit = 1
+let g:ale_fix_on_save = 1
+let g:vim_jsx_pretty_colorful_config = 1
+let g:vim_monokai_tasty_italic = 1
+
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>d :bd<CR>
 nmap <F8> :TagbarToggle<CR>
@@ -93,33 +96,27 @@ map <C-h> :bprev<CR>
 command! -nargs=* -bar -bang -count=0 -complete=dir E Explore <args>
 
 " Inherit the terminals background color.
-highlight Normal ctermbg=NONE
-
+hi Normal ctermbg=NONE
 " No background behind line numbers
-highlight LineNr ctermfg=white ctermbg=235
+hi LineNr ctermfg=white ctermbg=236
 " Comment Highlighting
-highlight Comment ctermbg=NONE
+hi Comment ctermbg=NONE
 " No background on Signcolumn
-highlight SignColumn ctermfg=white ctermbg=235
+hi SignColumn ctermfg=white ctermbg=236
 " Git Gutter custom settings
-highlight GitGutterAdd ctermfg=green ctermbg=235
-highlight GitGutterChange ctermfg=lightblue ctermbg=235
-highlight GitGutterDelete ctermfg=red ctermbg=235
-highlight GitGutterChangeDelete ctermfg=lightblue ctermbg=235
+hi GitGutterAdd ctermfg=green ctermbg=236
+hi GitGutterChange ctermfg=lightblue ctermbg=236
+hi GitGutterDelete ctermfg=red ctermbg=236
+hi GitGutterChangeDelete ctermfg=lightblue ctermbg=236
 " Highlight line color.
-highlight CursorLine ctermbg=235
-highlight CursorLineNR ctermbg=NONE ctermfg=white
+hi CursorLine ctermbg=236
+hi CursorLineNR ctermbg=NONE ctermfg=white
 
 " Disable Arrow keys
 map <up> <nop>
 map <down> <nop>
 map <left> <nop>
 map <right> <nop>
-"
-" Markdown stuff
-let g:vim_markdown_folding_disabled=1
-let g:vim_markdown_frontmatter=1
-let g:marked_app = "Marked"
 
 " Set sign column to always be open.
 set signcolumn=yes
@@ -144,29 +141,8 @@ vmap <S-Tab> <<
 " Wrap gitcommit file types at the appropriate length
 filetype indent plugin on
 
-"" Make Drupal file types have php syntax.
-if has("autocmd")
-  " Drupal *.module and *.install files.
-  augroup module
-    autocmd BufRead,BufNewFile *.module set filetype=php
-    autocmd BufRead,BufNewFile *.install set filetype=php
-    autocmd BufRead,BufNewFile *.test set filetype=php
-    autocmd BufRead,BufNewFile *.inc set filetype=php
-    autocmd BufRead,BufNewFile *.profile set filetype=php
-    autocmd BufRead,BufNewFile *.view set filetype=php
-  augroup END
-endif
-
 " Markdown specific stuff.
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-autocmd Filetype markdown call SetMarkdownOptions()
-function SetMarkdownOptions()
-  " Enable spellcheck.
-  set spell spelllang=en_us
-  " Wrap text (without linebreak charecters)
-  " I don't want to highlight the current line.
-  highlight CursorLine ctermbg=NONE
-endfunction
 
 " Remove trailing whitespace on save.
 autocmd BufWritePre * :%s/\s\+$//e
@@ -182,37 +158,79 @@ endfunc
 
 nnoremap <C-n> :call NumberToggle()<cr>
 
-function! s:TaskpaperSetup()
-  " Your settings
-  autocmd BufLeave,FocusLost * silent! wall
-endfunction
-
-augroup vimrc-taskpaper
-autocmd!
-  autocmd FileType taskpaper call s:taskpaper_setup()
-augroup END
-
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 
 " Force saving files that require root permission
 cnoremap w!! w !sudo tee > /dev/null %
 
-" Wrap visual selection in an HTML tag.
-vmap <Leader>t <Esc>:call VisualHTMLTagWrap()<CR>
-function! VisualHTMLTagWrap()
-  let tag = input("Tag to wrap block: ")
-  if len(tag) > 0
-    normal `>
-    if &selection == 'exclusive'
-      exe "normal i</".tag.">"
-    else
-      exe "normal a</".tag.">"
-    endif
-    normal `<
-    exe "normal i<".tag.">"
-    normal `<
+" COC Config sourced from https://github.com/neoclide/coc.nvim/blob/master/Readme.md
+" Better display for messages
+set cmdheight=2
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
   endif
 endfunction
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\'
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>

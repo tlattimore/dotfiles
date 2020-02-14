@@ -1,7 +1,19 @@
-# Oh-my-zsh stuff
+change () {
+        from=$1
+        shift
+        to=$1
+        shift
+        for file in $*
+        do
+                perl -i.bak -p -e "s{$from}{$to}g;" $file
+                echo "Changing $from to $to in $file"
+        done
+}
+
+#v/[p Oh-my-zsh stuff
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="blinks"
-plugins=(git tmuxinator npm grunt gulp vagrant yarn)
+plugins=(git tmuxinator npm grunt gulp vagrant yarn git-aliases)
 source $ZSH/oh-my-zsh.sh
 
 export EDITOR=vim
@@ -41,14 +53,9 @@ do
 done
 
 unset config_files
-export PATH="$(npm root -g):$HOME/bin:$HOME/.rbenv/bin:$PATH"
-# export PKG_CONFIG_PATH="/opt/X11/lib/pkgconfig"
-export NODE_PATH="'$(npm root -g)'"
-eval "$(rbenv init -)"
+export PATH="$(npm root -g):$HOME/bin:$HOME/.rbenv/bin:/usr/local/bin:$PATH"
+export NPM_CONFIG_PREFIX=~/.npm-global
 export RBENV_ROOT=/usr/local/var/rbenv
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-export PATH="$(brew --prefix homebrew/php/php56)/bin:$PATH"
 
 autoload bashcompinit
 bashcompinit
@@ -61,9 +68,19 @@ function rvm () {
 
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
-
-export NVM_DIR="/Users/tlattimore/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
 export LESSOPEN="| /usr/local/bin/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
+
+export PATH="/usr/local/opt/icu4c/bin:$PATH"
+export PATH="/usr/local/opt/icu4c/sbin:$PATH"
+
+# BEGIN SNIPPET: Platform.sh CLI configuration
+HOME=${HOME:-'/Users/tlattimore'}
+export PATH="$HOME/"'.platformsh/bin':"$PATH"
+if [ -f "$HOME/"'.platformsh/shell-config.rc' ]; then . "$HOME/"'.platformsh/shell-config.rc'; fi # END SNIPPET
+
+export GOPATH=$HOME/Go
+export GOROOT=/usr/local/opt/go/libexec
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
+unsetopt nomatch
