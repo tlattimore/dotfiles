@@ -17,6 +17,7 @@ Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'paranoida/vim-airlineish'
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 Plug 'patstockwell/vim-monokai-tasty'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'othree/yajs.vim'
@@ -31,8 +32,11 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'yuezk/vim-js'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
-Plug 'styled-components/vim-styled-components'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'eugen0329/vim-esearch'
+Plug 'zivyangll/git-blame.vim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'preservim/nerdcommenter'
 call plug#end()
 
 filetype plugin indent on    " required
@@ -82,6 +86,7 @@ let g:vim_monokai_tasty_italic = 1
 
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>d :bd<CR>
+nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
 nmap <F8> :TagbarToggle<CR>
 
 " Previous and next buffers.
@@ -122,6 +127,7 @@ let g:airline_powerline_fonts = 1
 
 " Turn on Vim Airline tabs.
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'jsformatter'
 let g:airline_theme = 'bubblegum'
 
 " Send d and c to the blackhole.
