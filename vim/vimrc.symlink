@@ -31,7 +31,9 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'yuezk/vim-js'
 Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'peitalin/vim-jsx-typescript'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'eugen0329/vim-esearch'
 Plug 'zivyangll/git-blame.vim'
@@ -203,6 +205,9 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+" CoC extensions
+let g:coc_global_extensions = ['coc-tsserver']
+
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -211,4 +216,8 @@ nmap <leader>rn <Plug>(coc-rename)
 
 let g:esearch#out#win#open = 'enew'
 let g:esearch#adapter = 'ag'
+
+" NERDCommenter
+let g:NERDCreateDefaultMappings = 0
+nmap <leader>cc <plug>NERDCommenterToggle
 
