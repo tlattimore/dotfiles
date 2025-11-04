@@ -26,7 +26,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'isRuslan/vim-es6'
 Plug 'mileszs/ack.vim'
 Plug 'pangloss/vim-javascript'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'yuezk/vim-js'
@@ -39,6 +39,7 @@ Plug 'eugen0329/vim-esearch'
 Plug 'zivyangll/git-blame.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'preservim/nerdcommenter'
+Plug 'elixir-editors/vim-elixir'
 call plug#end()
 
 filetype plugin indent on    " required
@@ -78,9 +79,11 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\'
 let g:netrw_banner = 0
 let g:netrw_fastbrowse = 0
 let g:ale_fixers = {
-\   'javascript': ['prettier'],
-\   'css': ['prettier'],
-\}
+ \ 'javascript': ['prettier', 'eslint'],
+ \ 'typescript': ['prettier', 'eslint'],
+ \ 'javascriptreact': ['prettier', 'eslint'],
+ \ 'typescriptreact': ['prettier', 'eslint'],
+ \ }
 let g:ale_linters_explicit = 1
 let g:ale_fix_on_save = 1
 let g:vim_jsx_pretty_colorful_config = 1
@@ -221,3 +224,6 @@ let g:esearch#adapter = 'ag'
 let g:NERDCreateDefaultMappings = 0
 nmap <leader>cc <plug>NERDCommenterToggle
 
+au BufRead,BufNewFile *.ex,*.exs set filetype=elixir
+au BufRead,BufNewFile *.eex,*.heex,*.leex,*.sface,*.lexs set filetype=eelixir
+au BufRead,BufNewFile mix.lock set filetype=elixir

@@ -1,24 +1,17 @@
-change () {
-        from=$1
-        shift
-        to=$1
-        shift
-        for file in $*
-        do
-                perl -i.bak -p -e "s{$from}{$to}g;" $file
-                echo "Changing $from to $to in $file"
-        done
-}
+source /usr/local/share/antigen/antigen.zsh
 
-function npm-do { (PATH=$(npm bin):$PATH; eval $@;) }
+antigen use oh-my-zsh
 
-#v/[p Oh-my-zsh stuff
-ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="blinks"
-plugins=(git tmuxinator npm grunt gulp vagrant yarn git-aliases)
-source $ZSH/oh-my-zsh.sh
+antigen bundle git
+antigen bundle git-aliases
+antigen bundle zsh-history-substring-search
+
+antigen theme blinks
+
+antigen apply
 
 export EDITOR=vim
+alias vim="nvim"
 export SHELL_CONFIG=$HOME/.dotfiles/
 
 # use .localrc for SUPER SECRET STUFF that you don't
@@ -55,34 +48,23 @@ do
 done
 
 unset config_files
-export PATH="$(npm root -g):$HOME/bin:$HOME/.rbenv/bin:/usr/local/bin:$PATH"
-export NPM_CONFIG_PREFIX=~/.npm-global
-export RBENV_ROOT=/usr/local/var/rbenv
 
 autoload bashcompinit
 bashcompinit
 
-function rvm () {
-  if [[ $1 == 'use' ]]; then
-    rbenv shell $2
-  fi
-}
 
 export PATH="/usr/local/sbin:$PATH"
-export PATH="$HOME/.composer/vendor/bin:$PATH"
 export LESSOPEN="| /usr/local/bin/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
-
-export PATH="/usr/local/opt/icu4c/bin:$PATH"
-export PATH="/usr/local/opt/icu4c/sbin:$PATH"
 
 # BEGIN SNIPPET: Platform.sh CLI configuration
 HOME=${HOME:-'/Users/tlattimore'}
 export PATH="$HOME/"'.platformsh/bin':"$PATH"
 if [ -f "$HOME/"'.platformsh/shell-config.rc' ]; then . "$HOME/"'.platformsh/shell-config.rc'; fi # END SNIPPET
 
-export GOPATH=$HOME/Go
-export GOROOT=/usr/local/opt/go/libexec
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin
 unsetopt nomatch
+eval "$(fnm env --use-on-cd --shell zsh)"
+eval "$(frum init)"
+eval "$(rbenv init - --no-rehash bash)"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
