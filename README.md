@@ -1,18 +1,17 @@
- tlattimore's dotfiles
+# tlattimore's dotfiles
 
-## dotfiles
+Personalized macOS development environment based on topical organization.
 
-This repo is based on [Zach holmen's
-dotfiles](https://github.com/holman/dotfiles).
+## Assumptions
 
-Your dotfiles are how you personalize your system. These are mine.
+- macOS operating system
+- Zsh as default shell
+- Git version control
+- Homebrew installed
+- Neovim/Vim available
+- Terminal with 256-color support
 
-If you're interested in the philosophy behind why projects like these are
-awesome, you might want to read [this post](http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/).
-
-## install
-
-Run this:
+## Installation
 
 ```sh
 git clone https://github.com/tlattimore/dotfiles.git ~/.dotfiles
@@ -20,46 +19,49 @@ cd ~/.dotfiles
 script/bootstrap
 ```
 
-This will symlink the appropriate files in `.dotfiles` to your home directory.
-Everything is configured and tweaked within `~/.dotfiles`.
+Bootstrap symlinks `.symlink` files to `$HOME` and configures git.
 
-The main file you'll want to change right off the bat is `zsh/zshrc.symlink`,
-which sets up a few paths that'll be different on your particular machine.
+## Dependency Management
 
-`dot` is a simple script that installs some dependencies, sets sane OS X
-defaults, and so on. Tweak this script, and occasionally run `dot` from
-time to time to keep your environment fresh and up-to-date. You can find
-this script in `bin/`.
+- **Antigen**: Zsh plugin management
+- **vim-plug**: Vim/Neovim plugin management
+- **Homebrew**: macOS package installation
+- **Bootstrap script**: Automated symlink creation
 
-## topical
+## Structure
 
-Everything's built around topic areas. If you're adding a new area to your
-forked dotfiles — say, "Java" — you can simply add a `java` directory and put
-files in there. Anything with an extension of `.zsh` will get automatically
-included into your shell. Anything with an extension of `.symlink` will get
-symlinked without extension into `$HOME` when you run `script/bootstrap`.
+- `topic/*.zsh`: Auto-loaded shell scripts
+- `topic/path.zsh`: Loaded first for `$PATH` setup
+- `topic/completion.zsh`: Loaded last for autocomplete
+- `topic/*.symlink`: Symlinked to `$HOME` as dotfiles
 
-## what's inside
+## Custom Functions
 
-A lot of stuff. Seriously, a lot of stuff. Check them out in the file browser
-above and see what components may mesh up with you.
-[Fork it](https://github.com/tlattimore/dotfiles/fork), remove what you don't
-use, and build on what you do use.
+### Shell Navigation
+- **md()** - Make directory and cd into it
+- **title()** - Set terminal window title
 
-## components
+### Git Utilities
+- **gl-web()** - Open current branch in GitLab web UI
 
-There's a few special files in the hierarchy.
+### Environment
+- **virtualenv_info()** - Display active Python virtualenv
+- **hg_prompt_info()** - Display Mercurial repository info
 
-- **bin/**: Anything in `bin/` will get added to your `$PATH` and be made
-  available everywhere.
-- **topic/\*.zsh**: Any files ending in `.zsh` get loaded into your
-  environment.
-- **topic/path.zsh**: Any file named `path.zsh` is loaded first and is
-  expected to setup `$PATH` or similar.
-- **topic/completion.zsh**: Any file named `completion.zsh` is loaded
-  last and is expected to setup autocomplete.
-- **topic/\*.symlink**: Any files ending in `*.symlink` get symlinked into
-  your `$HOME`. This is so you can keep all of those versioned in your dotfiles
-  but still keep those autoloaded files in your home directory. These get
-  symlinked in when you run `script/bootstrap`
+## Aliases
 
+### Search & System
+- **se** - Recursive grep search
+- **reload!** - Reload zsh configuration
+- **cppath** - Copy current path to clipboard
+- **rand** - Generate 32-char random string
+
+### Tool Shortcuts
+- **vi** - Launch vim
+- **vim** - Launch nvim
+- **mux** - Shortcut for tmuxinator
+- **atc** - Attach to tmux session
+
+### Git
+- **gpull** - Git pull with rebase from origin
+- **gpush** - Git push to origin
