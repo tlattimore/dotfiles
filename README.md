@@ -59,7 +59,7 @@ Bootstrap symlinks `.symlink` files to `$HOME` and configures git.
 ### Tool Shortcuts
 - **vi** - Launch vim
 - **vim** - Launch nvim
-- **mux** - Shortcut for tmuxinator
+- **mux** - Shortcut for smug
 - **atc** - Attach to tmux session
 
 ### Git
