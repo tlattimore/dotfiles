@@ -49,6 +49,15 @@ _gitlab_fetch_mr_status() {
 
     # Extract pipeline status from MR data
     local pipeline_status=$(glab api "projects/:id/merge_requests?source_branch=$branch&state=opened" 2>/dev/null | jq -r '.[0].head_pipeline.status // "none"' 2>/dev/null || echo "none")
+
+    # If MR has no pipeline, fall back to commit pipeline
+    if [[ "$pipeline_status" == "none" ]]; then
+      local commit_sha=$(git rev-parse HEAD 2>/dev/null)
+      if [[ -n "$commit_sha" ]]; then
+        pipeline_status=$(glab api "projects/:id/repository/commits/$commit_sha" 2>/dev/null | jq -r '.last_pipeline.status // "none"' 2>/dev/null || echo "none")
+      fi
+    fi
+
     echo "$pipeline_status" > "$cache_dir/$cache_key.pipeline"
   else
     # No MR found
