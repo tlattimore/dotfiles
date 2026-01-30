@@ -38,19 +38,17 @@ _gitlab_fetch_mr_status() {
   # Check if glab is available
   command -v glab >/dev/null 2>&1 || return
 
-  # Fetch MR data from GitLab API
+  # Fetch MR data from GitLab API and parse with jq
   # Using :id placeholder which glab resolves to current project
-  local mr_data=$(glab api "projects/:id/merge_requests?source_branch=$branch&state=opened" 2>/dev/null)
-
-  # Parse response with jq
-  local mr_count=$(echo "$mr_data" | jq 'length' 2>/dev/null || echo "0")
+  # Pipe directly to jq to avoid shell variable escaping issues
+  local mr_count=$(glab api "projects/:id/merge_requests?source_branch=$branch&state=opened" 2>/dev/null | jq 'length' 2>/dev/null || echo "0")
 
   if [[ "$mr_count" -gt 0 ]]; then
     # MR exists
     echo "true" > "$cache_dir/$cache_key.mr"
 
     # Extract pipeline status from MR data
-    local pipeline_status=$(echo "$mr_data" | jq -r '.[0].head_pipeline.status // "none"' 2>/dev/null)
+    local pipeline_status=$(glab api "projects/:id/merge_requests?source_branch=$branch&state=opened" 2>/dev/null | jq -r '.[0].head_pipeline.status // "none"' 2>/dev/null || echo "none")
     echo "$pipeline_status" > "$cache_dir/$cache_key.pipeline"
   else
     # No MR found
@@ -105,8 +103,8 @@ gitlab_mr_prompt_info() {
 
   # Add pipeline status if available
   if [[ -f "$pipeline_cache" ]]; then
-    local status=$(cat "$pipeline_cache" 2>/dev/null)
-    case "$status" in
+    local pipeline_status=$(cat "$pipeline_cache" 2>/dev/null)
+    case "$pipeline_status" in
       success)
         output="$output %{$fg[green]%}✓%{$reset_color%}"
         ;;
@@ -125,7 +123,7 @@ gitlab_mr_prompt_info() {
       skipped)
         output="$output -"
         ;;
-      # If status is "none" or unknown, just show MR icon without status
+      # If pipeline_status is "none" or unknown, just show MR icon without status
     esac
   fi
 
