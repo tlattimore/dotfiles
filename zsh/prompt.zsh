@@ -16,7 +16,7 @@ function hg_prompt_info {
 patches: <patches|join( → )|pre_applied(%{$fg[yellow]%})|post_applied(%{$reset_color%})|pre_unapplied(%{$fg_bold[black]%})|post_unapplied(%{$reset_color%})>>" 2>/dev/null
 }
 
-PROMPT='%{$fg[magenta]%}[%{$reset_color%}%{$fg_bold[green]%}${PWD/#$HOME/~}%{$reset_color%}$(hg_prompt_info)$(git_prompt_info)%{$fg[magenta]%}]%{$reset_color%}$(virtualenv_info)%{$reset_color%}
+PROMPT='%{$fg[magenta]%}[%{$reset_color%}%{$fg_bold[green]%}${PWD/#$HOME/~}%{$reset_color%}$(hg_prompt_info)$(git_prompt_info)$(gitlab_mr_prompt_info)%{$fg[magenta]%}]%{$reset_color%}$(virtualenv_info)%{$reset_color%}
 ➞ '
 
 ZSH_THEME_GIT_PROMPT_PREFIX=" on %{$fg[magenta]%}"
