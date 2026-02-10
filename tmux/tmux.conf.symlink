@@ -1,11 +1,11 @@
 # zsh is kinda tight
-set-option -g default-shell $SHELL
+#set-option -g default-shell $SHELL
+#set-option -g default-command "arch -arch arm64 /opt/homebrew/bin/zsh"
+set-option -g default-command "arch -arch arm64 /opt/homebrew/bin/zsh"
 
 # Reset window numbering to start at 1
 set -g base-index 1
 set -g pane-base-index 1
-# copy and paster
-set-option -g default-command "reattach-to-user-namespace -l zsh"
 
 # look good
 set -g default-terminal "screen-256color"
@@ -57,3 +57,8 @@ set -s escape-time 1
 bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M' 'copy-mode -e; send-keys -M'"
 bind m set -g mouse on \; display "Mouse ON"; bind M set -g mouse off \; display "Mouse OFF"
 bind R source-file ~/.tmux.conf \; display-message "Config reloaded..."
+
+# TPM
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+run '~/.tmux/plugins/tpm/tpm'

@@ -39,7 +39,6 @@ Plug 'eugen0329/vim-esearch'
 Plug 'zivyangll/git-blame.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'preservim/nerdcommenter'
-Plug 'elixir-editors/vim-elixir'
 call plug#end()
 
 filetype plugin indent on    " required
@@ -149,7 +148,8 @@ vmap <S-Tab> <<
 filetype indent plugin on
 
 " Markdown specific stuff.
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd BufNewFile,BufReadPost *.md setlocal filetype=markdown textwidth=0 formatoptions-=t formatoptions-=a wrap linebreak
+autocmd FileType markdown setlocal textwidth=0 formatoptions-=t formatoptions-=a wrap linebreak
 
 " Remove trailing whitespace on save.
 autocmd BufWritePre * :%s/\s\+$//e

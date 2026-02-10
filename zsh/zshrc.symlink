@@ -1,14 +1,17 @@
-source /usr/local/share/antigen/antigen.zsh
+# Initialize antigen only on first shell load to prevent reload spam
+if (( ! ${+functions[antigen]} )); then
+  source /usr/local/share/antigen/antigen.zsh
 
-antigen use oh-my-zsh
+  antigen use oh-my-zsh
 
-antigen bundle git
-antigen bundle git-aliases
-antigen bundle zsh-history-substring-search
+  antigen bundle git
+  antigen bundle git-aliases
+  antigen bundle zsh-history-substring-search
 
-antigen theme blinks
+  antigen theme blinks
 
-antigen apply
+  antigen apply
+fi
 
 export EDITOR=vim
 alias vim="nvim"
@@ -54,7 +57,7 @@ bashcompinit
 
 
 export PATH="/usr/local/sbin:$PATH"
-export LESSOPEN="| /usr/local/bin/src-hilite-lesspipe.sh %s"
+export PATH="$HOME/.local/bin:$PATH"
 export LESS=' -R '
 
 # BEGIN SNIPPET: Platform.sh CLI configuration
@@ -65,6 +68,14 @@ if [ -f "$HOME/"'.platformsh/shell-config.rc' ]; then . "$HOME/"'.platformsh/she
 unsetopt nomatch
 eval "$(fnm env --use-on-cd --shell zsh)"
 eval "$(frum init)"
-eval "$(rbenv init - --no-rehash bash)"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
+
+# Amp CLI
+export PATH="/Users/tlattimore/.amp/bin:$PATH"
+
+# AI Gateway
+eval "$(ai-gateway env)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+eval "$(/opt/homebrew/bin/brew shellenv zsh)"
