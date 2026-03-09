@@ -10,8 +10,10 @@ ZSH_GITLAB_MR_ICON="${ZSH_GITLAB_MR_ICON:-󰊢}"      # Merge request icon
 _gitlab_cache_key() {
   local repo_root=$(git rev-parse --show-toplevel 2>/dev/null) || return 1
   local branch=$(git symbolic-ref --short HEAD 2>/dev/null) || return 1
-  # Use md5 to hash repo path for shorter, filesystem-safe key
-  echo "$(echo -n "$repo_root" | md5).$branch"
+  # Use md5 to hash repo path for shorter, filesystem-safe key.
+  # Replace slashes in branch name to avoid creating subdirectory paths.
+  local branch_safe="${branch//\//_}"
+  echo "$(echo -n "$repo_root" | md5).$branch_safe"
 }
 
 # Check if cache file exists and is fresh
